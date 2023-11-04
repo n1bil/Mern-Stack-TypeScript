@@ -1,0 +1,8 @@
+.noteCard {
+    background-color: cadetblue;
+    margin: 4px;
+}
+
+.cardText {
+    white-space: pre-line;
+}
