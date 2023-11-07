@@ -12,21 +12,38 @@ const fetchData = async (input: RequestInfo, init?: RequestInit) => {
 };
 
 export const fetchNotes = async (): Promise<Note[]> => {
-    const response = await fetchData("http://localhost:5000/api/notes", { method: "GET" });
+    const response = await fetchData("http://localhost:5000/api/notes", {
+        method: "GET",
+    });
     return response.json();
 };
 
 export interface NoteInput {
-    title: string,
-    text?: string,
+    title: string;
+    text?: string;
 }
 
 export const createNote = async (note: NoteInput): Promise<Note> => {
-    const response = await fetchData("http://localhost:5000/api/notes", 
-    { 
+    const response = await fetchData("http://localhost:5000/api/notes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(note)
+        body: JSON.stringify(note),
+    });
+    return response.json();
+};
+
+export const updateNote = async (noteId: string, note: NoteInput): Promise<Note> => {
+    const response = await fetchData("http://localhost:5000/api/notes/" + noteId, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(note),
     });
     return response.json();
 }
+
+export const deleteNote = async (noteId: string) => {
+    await fetchData("http://localhost:5000/api/notes/" + noteId, {
+        method: "DELETE",
+    });
+};
+

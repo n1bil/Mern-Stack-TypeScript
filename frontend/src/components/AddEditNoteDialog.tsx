@@ -4,18 +4,30 @@ import { useForm } from "react-hook-form";
 import { NoteInput } from "../network/notes_api";
 import * as NotesApi from "../network/notes_api";
 
-interface AddNoteDialogProps {
+interface AddEditNoteDialogProps {
+    noteToEdit?: Note,
     onDismiss: () => void;
     onNoteSaved: (note: Note) => void;
 }
 
-const AddNoteDialog = (props: AddNoteDialogProps) => {
+const AddEditNoteDialog = (props: AddEditNoteDialogProps) => {
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<NoteInput>();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<NoteInput>({
+        defaultValues: { 
+            title: props.noteToEdit?.title || "",
+            text: props.noteToEdit?.text || "",
+        }
+    });
 
     const onSubmit = async(input: NoteInput) => {
         try {
-            const noteResponse = await NotesApi.createNote(input);
+            let noteResponse: Note;
+            if (props.noteToEdit) {
+                noteResponse = await NotesApi.updateNote(props.noteToEdit._id, input);
+            } else {
+                noteResponse = await NotesApi.createNote(input);
+            }
+
             props.onNoteSaved(noteResponse);
         } catch (error) {
             console.error(error);
@@ -27,12 +39,12 @@ const AddNoteDialog = (props: AddNoteDialogProps) => {
         <Modal show onHide={props.onDismiss}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    Add Note
+                    {props.noteToEdit ? "Edit note" : "Add note"}
                 </Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <Form id="addNoteForm" onSubmit={handleSubmit(onSubmit)}>                                     {/* делаем связь addNoteForm и вызывает onSubmit чтобы отправить данные на сервер*/}
+                <Form id="addEditNoteForm" onSubmit={handleSubmit(onSubmit)}>                                     {/* делаем связь addNoteForm и вызывает onSubmit чтобы отправить данные на сервер*/}
                     <Form.Group className="mb-3">
                         <Form.Label>Title</Form.Label>
                         <Form.Control 
@@ -61,7 +73,7 @@ const AddNoteDialog = (props: AddNoteDialogProps) => {
             <Modal.Footer>
                 <Button 
                     type="submit" 
-                    form="addNoteForm"
+                    form="addEditNoteForm"
                     disabled={isSubmitting}
                 >                                                       {/* делаем связь addNoteForm */}                    
                     Save
@@ -71,4 +83,4 @@ const AddNoteDialog = (props: AddNoteDialogProps) => {
     );
 };
 
-export default AddNoteDialog;
+export default AddEditNoteDialog;
