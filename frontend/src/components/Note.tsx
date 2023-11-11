@@ -26,7 +26,7 @@ const Note = ({ note, onNoteClicked, onDeleteNoteClicked, className }: NoteProps
     return (
         <Card 
             className={`${styles.noteCard} ${className}`}
-            onClick={() => onNoteClicked(note)}
+            onClick={() => onNoteClicked(note)}                                                 // когда нажимаем на любую зону taska то появляется всплывающее окно
             >
             <Card.Body className={styles.cardBody}>
                 <Card.Title className={stylesUtils.flexCenter}>
@@ -34,8 +34,8 @@ const Note = ({ note, onNoteClicked, onDeleteNoteClicked, className }: NoteProps
                     <MdDelete 
                         className="text-muted ms-auto" 
                         onClick={(e: Event) => { 
-                            onDeleteNoteClicked(note);
-                            e.stopPropagation();
+                            onDeleteNoteClicked(note);                                          // передаем Note который хотим удалить
+                            e.stopPropagation();                                                // ставим эту команду потому что когда нажимаем на удалить задачу не появлялось всплывающее окно
                         }}
                     />
                 </Card.Title>
