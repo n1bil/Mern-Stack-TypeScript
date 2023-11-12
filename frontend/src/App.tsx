@@ -44,23 +44,23 @@ function App() {
                 </>
             </Container>
             {showSignUpModal && (
-                    <SignUpModal
-                        onDismiss={() => setShowSignUpModal(false)}
-                        onSignUpSuccessful={(user) => { 
-                            setLoggedInUser(user); 
-                            setShowSignUpModal(false);
-                        }}
-                    />
-                )}
-                {showLoginModal && (
-                    <LoginModal
-                        onDismiss={() => setShowLoginModal(false)}
-                        onLoginSuccessful={(user) => { 
-                            setLoggedInUser(user); 
-                            setShowLoginModal(false);
-                        }}
-                    />
-                )}
+                <SignUpModal
+                    onDismiss={() => setShowSignUpModal(false)}
+                    onSignUpSuccessful={(user) => {
+                        setLoggedInUser(user);
+                        setShowSignUpModal(false);
+                    }}
+                />
+            )}
+            {showLoginModal && (
+                <LoginModal
+                    onDismiss={() => setShowLoginModal(false)}
+                    onLoginSuccessful={(user) => {
+                        setLoggedInUser(user);
+                        setShowLoginModal(false);
+                    }}
+                />
+            )}
         </div>
     );
 }

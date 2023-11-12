@@ -7,7 +7,7 @@ interface NavBarLoggedInViewProps {
     onLogoutSuccessful: () => void;
 }
 
-export const NavBarLoggedInView = ( props: NavBarLoggedInViewProps): NavBarLoggedInViewProps => {
+export const NavBarLoggedInView = ( props: NavBarLoggedInViewProps): JSX.Element => {
 
     const logout = async () => {
         try {

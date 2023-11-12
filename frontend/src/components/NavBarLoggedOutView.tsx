@@ -5,7 +5,7 @@ interface NavBarLoggedOutViewProps {
     onLoginUpClicked: () => void,
 }
 
-const NavBarLoggedOutView = (props: NavBarLoggedOutViewProps): NavBarLoggedOutViewProps => {
+const NavBarLoggedOutView = (props: NavBarLoggedOutViewProps): JSX.Element => {
   return (
     <>
         <Button onClick={props.onSignUpClicked}>Sign Up</Button>

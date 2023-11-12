@@ -10,7 +10,7 @@ interface NavBarProps {
     onLogoutSuccessful: () => void,  
 }
 
-const NavBar = (props: NavBarProps): NavBarProps => {
+const NavBar = (props: NavBarProps): JSX.Element => {
   return (
     <Navbar bg="primary" variant="dark" expand="lg" sticky="top">
         <Container>
